@@ -1,0 +1,17 @@
+1)pwd - print working directory -> gives base folder
+2)cd - change directory -> for navigation -> cd Desktop/ -> to back -> cd .. -> 2files back = cd ../..
+3)ls - listing -> to listing all files of current folder
+4)mkdir - make directory -> to make new folder -> mkdir foldername
+5)touch - to make file -> touch filename
+6)cat - contents of file -> cat filename
+7)vi - to sit files -> not reommended -> vi filename -> thne pres i to enable keyboard -> to escape = esc:q!
+8)mv - move -> help to move file from one folderr to another -> mv foldernametomove destinationfoldername -> same for file
+9)cp - copy -> copy files -> cp filename destinationfoldername -> to cpoy directory -> cp -r foldernametocopy destinationfoldername
+
+node related commands
+10)nvm -> node version manager -> to install node/helps manage multiple Node. js
+11)npm -> node package manager -> package manager for Node. js, allowing developers to install, share, and manage dependencies in their projects. -> npm install library name
+12)node ->command is used to execute JavaScript code outside of a web browser
+
+git command
+13)git

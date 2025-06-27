@@ -1,0 +1,46 @@
+1)ls ->used to list information about files and directories within the file system.
+ls -l -> shows detailed information about each file/directory.
+ls -lt ->sorted by modification time (newest first).
+ls -la ->to see hidden files
+ls -lRa -> to see hidden files in sub directories
+ls -lr ->to see modified files in reverse way
+ls -s ->we can also list directories by size
+
+
+2)chmod -> used to change the permissions of files and directories.(r,w,x)read,write,execute
+chmod ugo+-rwx-> this means chmod for user/group/all and want to - or + to change read/write/execute
+4=read 2=write 1=execute
+
+3)echo ->displays a line of text or variable values in the terminal.
+
+4)hed -> first 10 rows of file -> also pass reuired rows -> head -no.ofrowsrequired filename
+5)tail -> last 10 rows of the file ->also pass reuired rows -> tail -no.ofrowsrequired filename
+6)wc ->word count ->count the number of lines, words, and characters in a file or input.
+7)grep ->Global Regular Expression Print.-> essential for searching text.Supports regular expressions for advanced pattern matching.
+grep -h word filename ->This is useful when you want to ignore the file name prefix and only see the matching text.
+grep -hi word filename -> to ignore case word is written
+grep -hin word filename -> with number of line
+grep -o -> only that word matching
+grep -w -> word with anothers words too
+grep -v ->It shows all lines that do NOT match the pattern.
+grep -A ->t displays N lines after each matching line.
+grep -C ->It shows the matching line plus N lines of context (both before and after).
+
+8) History -> to know which commands are given till
+9) sed = stream editor -> for searching, finding, replacing, inserting, and deleting text in files or input streams. ->for automating text edits in scripts or pipelines.
+sed 's/pattern/replacement/' file.txt ->Replaces the first occurrence of "pattern" with "replacement" in each line.
+sed 's/pattern/replacement/g' file.txt ->g = global replacement on each line.
+sed -i 's/old/new/g' file.txt -> In-place file editing (overwrite the file)
+sed '/pattern/d' file.txt -> delete lines
+sed -n '/pattern/p' file.txt ->Print only modified lines (or selected lines)
+sed '/pattern/i inserted line' file.txt   # Insert before
+sed '/pattern/a appended line' file.txt   # Insert after
+sed 'lineno. , lineno. s/pattern/replacement/' file.txt  -> to look from selective range of lines
+
+
+10) awk -> text-processing language and command.
+It works by reading input line by line and dividing each line into fields (by default, separated by spaces or tabs).
+Great for searching, manipulating, and generating reports from structured data.
+syntax -> awk 'pattern { action }' file
+awk '{ sum += $2 } END { print sum }' file.txt ->Adds up the second column and prints the total at the end.
+awk -F, '{ print $2 }' file.csv -> sets the field separator to a comma, perfect for CSV files.
