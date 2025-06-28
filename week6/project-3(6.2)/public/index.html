@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auth website</title>
+  </head>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  <script>
+    async function signup() {
+      try {
+        const username = document.getElementById("signup-username").value;
+        const password = document.getElementById("signup-password").value;
+
+        const response = await axios.post("http://localhost:3000/signup", {
+          username: username,
+          password: password,
+        });
+        alert("Signed up successfully");
+        document.getElementById("signup-section").style.display = "none";
+        document.getElementById("signin-section").style.display = "block;";
+        document.getElementById("user-section").style.display = "block";
+      } catch {
+        alert("Signup failed");
+        console.error(err);
+      }
+    }
+
+    async function signin() {
+      try {
+        const username = document.getElementById("signin-username").value;
+        const password = document.getElementById("signin-password").value;
+
+        const response = await axios.post("http://localhost:3000/signin", {
+          username: username,
+          password: password,
+        });
+        localStorage.setItem("token", response.data.token);
+        alert("Signed in successfully");
+
+        getUserInformation(); // trigger rendering
+      } catch (err) {
+        alert("Signin failed");
+        console.error(err);
+      }
+    }
+
+    async function getUserInformation() {
+      try {
+        const response = await axios.get("http://localhost:3000/me", {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        });
+        document.getElementById("signup-section").style.display = "none";
+        document.getElementById("signin-section").style.display = "none";
+        document.getElementById("user-section").style.display = "block";
+
+        document.getElementById("information").innerHTML =
+          "Username: " +
+          response.data.username +
+          "<br>Password: " +
+          response.data.password;
+      } catch (err) {
+        console.error("Invalid or missing token:", err.message);
+
+        localStorage.removeItem("token"); // remove broken token if any
+        document.getElementById("signup-section").style.display = "block";
+        document.getElementById("signin-section").style.display = "block";
+        document.getElementById("user-section").style.display = "none";
+      }
+    }
+
+
+    function logout() {
+      localStorage.removeItem("token");
+      alert("Logged out successfully");
+
+      document.getElementById("information").innerHTML = "";
+      document.getElementById("signup-section").style.display = "block";
+      document.getElementById("signin-section").style.display = "block";
+      document.getElementById("user-section").style.display = "none";
+    }
+
+    window.onload = function () {
+      getUserInformation();
+    };
+  </script>
+  <body>
+    <div id="signup-section">
+      <div id="signup">
+        Signup
+        <input
+          id="signup-username"
+          type="text"
+          name="username"
+          placeholder="Username"
+        />
+        <input
+          id="signup-password"
+          type="text"
+          name="password"
+          placeholder="Password"
+        />
+        <button onclick="signup()">SUBMIT</button>
+      </div>
+    </div>
+
+    <div id="signin-section">
+      <div id="signin">
+        Signin
+        <input
+          id="signin-username"
+          type="text"
+          name="username"
+          placeholder="Username"
+        />
+        <input
+          id="signin-password"
+          type="text"
+          name="password"
+          placeholder="Password"
+        />
+        <button onclick="signin()">SUBMIT</button>
+      </div>
+    </div>
+
+    <div id="user-section">
+      <div>
+        <b>User Information: </b>
+        <div id="information"></div>
+      </div>
+      <div>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </body>
+</html>

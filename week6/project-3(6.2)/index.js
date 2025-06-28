@@ -13,6 +13,10 @@ function logger(req, res, next) {
   next();
 }
 
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
 app.post("/signup", logger, function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
@@ -58,6 +62,11 @@ app.post("/signin", logger, function (req, res) {
 
 function auth(req, res, next) {
   const token = req.headers.token;
+  if (!token) {
+    return res.status(401).json({
+      msg: "Token missing",
+    });
+  }
   const decodedInformation = jwt.verify(token, JWT_SECRET);
   const username = decodedInformation.username;
   if (username) {
